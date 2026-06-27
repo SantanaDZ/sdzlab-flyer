@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  html { zoom: 3; }
+</style>
+<title>SDZLab — Flyer de Divulgação</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0b1929;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .flyer {
+    width: 540px;
+    background: #0b1929;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(56,189,248,0.08);
+  }
+
+  .top-bar {
+    height: 4px;
+    background: linear-gradient(90deg, #38bdf8, #06b6d4, #22d3ee);
+  }
+
+  .inner {
+    padding: 40px 40px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+  }
+
+  .bg-glow {
+    position: absolute;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(56,189,248,0.055) 0%, transparent 70%);
+    top: -100px; right: -80px;
+    pointer-events: none;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand-block { display: flex; flex-direction: column; gap: 5px; }
+
+  .brand-name {
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .brand-name span { color: #38bdf8; }
+
+  .brand-tag {
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(148,200,230,0.5);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .divider {
+    height: 1px;
+    background: rgba(56,189,248,0.1);
+  }
+
+  .headline {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .headline span { color: #38bdf8; }
+
+  .subline {
+    font-size: 13.5px;
+    color: rgba(180,215,240,0.5);
+    font-weight: 400;
+    line-height: 1.55;
+    margin-top: 8px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .service-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(56,189,248,0.1);
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .service-icon {
+    width: 32px; height: 32px;
+    border-radius: 9px;
+    background: rgba(56,189,248,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .service-icon svg { width: 17px; height: 17px; }
+
+  .service-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e0f0ff;
+  }
+
+  .contact-block {
+    background: rgba(56,189,248,0.07);
+    border: 1px solid rgba(56,189,248,0.18);
+    border-radius: 16px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .contact-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #38bdf8;
+  }
+
+  .contact-rows { display: flex; flex-direction: column; gap: 9px; }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .c-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: rgba(56,189,248,0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .c-icon svg { width: 15px; height: 15px; }
+
+  .c-text {
+    font-size: 14px;
+    color: #d0eaf8;
+    font-weight: 600;
+  }
+
+  .c-sub {
+    font-size: 11px;
+    color: rgba(148,200,230,0.45);
+    font-weight: 400;
+    margin-top: 1px;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 2px;
+  }
+
+  .footer-left { display: flex; flex-direction: column; gap: 3px; }
+
+  .footer-cta {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(148,200,230,0.45);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-url {
+    font-size: 16px;
+    font-weight: 800;
+    color: #38bdf8;
+    letter-spacing: -0.01em;
+  }
+
+  .qr-mini {
+    width: 68px; height: 68px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 5px;
+  }
+
+  /* Instrução de screenshot — some na impressão */
+  .tip {
+    text-align: center;
+    padding: 18px 0 0;
+    font-size: 11px;
+    color: rgba(148,200,230,0.3);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.03em;
+  }
+
+  @media print {
+    body { background: #0b1929; }
+    .tip { display: none; }
+    .flyer { border-radius: 0; border: none; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div>
+  <div class="flyer">
+    <div class="top-bar"></div>
+    <div class="inner">
+      <div class="bg-glow"></div>
+
+      <!-- Cabeçalho -->
+      <div class="header">
+        <div class="brand-block">
+          <div class="brand-name">SDZ<span>Lab</span></div>
+          <div class="brand-tag">Soluções Digitais &amp; IA</div>
+        </div>
+        <svg width="58" height="58" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:.88">
+          <polygon points="40,12 62,25 62,55 40,68 18,55 18,25" stroke="white" stroke-width="2" fill="none"/>
+          <polygon points="40,22 54,30 54,50 40,58 26,50 26,30" stroke="#38bdf8" stroke-width="1.5" fill="none"/>
+          <line x1="40" y1="8" x2="40" y2="12" stroke="#22d3ee" stroke-width="2"/>
+          <circle cx="40" cy="7" r="2.5" fill="#22d3ee"/>
+          <line x1="65" y1="23" x2="62" y2="25" stroke="#38bdf8" stroke-width="1.5"/>
+          <circle cx="67" cy="22" r="2" fill="#38bdf8"/>
+          <line x1="65" y1="57" x2="62" y2="55" stroke="#38bdf8" stroke-width="1.5"/>
+          <circle cx="67" cy="58" r="2" fill="#38bdf8"/>
+          <line x1="40" y1="72" x2="40" y2="68" stroke="#22d3ee" stroke-width="2"/>
+          <circle cx="40" cy="74" r="2.5" fill="#22d3ee"/>
+          <line x1="15" y1="57" x2="18" y2="55" stroke="#38bdf8" stroke-width="1.5"/>
+          <circle cx="13" cy="58" r="2" fill="#38bdf8"/>
+          <line x1="15" y1="23" x2="18" y2="25" stroke="#38bdf8" stroke-width="1.5"/>
+          <circle cx="13" cy="22" r="2" fill="#38bdf8"/>
+        </svg>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Headline -->
+      <div>
+        <div class="headline">Seu negócio no digital,<br><span>do jeito certo.</span></div>
+        <div class="subline">Desenvolvemos sites, automações e chatbots com IA<br>para empresas que querem crescer de verdade.</div>
+      </div>
+
+      <!-- Serviços -->
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <line x1="3" y1="9" x2="21" y2="9"/>
+              <line x1="9" y1="21" x2="9" y2="9"/>
+            </svg>
+          </div>
+          <div class="service-name">Sites do zero</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+          </div>
+          <div class="service-name">Chatbot inteligente</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 12 19.79 19.79 0 01.91 3.4 2 2 0 012.89 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.06-1.06a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+          </div>
+          <div class="service-name">Integração WhatsApp</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <div class="service-name">Automações com IA</div>
+        </div>
+      </div>
+
+      <!-- Contato -->
+      <div class="contact-block">
+        <div class="contact-label">Entre em contato</div>
+        <div class="contact-rows">
+          <div class="contact-row">
+            <div class="c-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 12 19.79 19.79 0 01.91 3.4 2 2 0 012.89 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.06-1.06a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="c-text">(31) 98438-2472</div>
+              <div class="c-sub">Fale com André · WhatsApp</div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="c-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </div>
+            <div>
+              <div class="c-text">@sdzlab</div>
+              <div class="c-sub">Instagram</div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="c-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="c-text">sdzlab.com.br</div>
+              <div class="c-sub">Site oficial</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rodapé com QR -->
+      <div class="footer">
+        <div class="footer-left">
+          <div class="footer-cta">Escaneie e acesse</div>
+          <div class="footer-url">sdzlab.com.br</div>
+        </div>
+        <div class="qr-mini">
+          <img src="data:image/png;base64,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" style="width:100%;height:100%;display:block;border-radius:6px;">
+        </div>
+      </div>
+
+    </div>
+  <!-- </div>
+  <p class="tip">Abra no Chrome · pressione F12 → Ctrl+Shift+P → "Screenshot" para salvar como imagem PNG</p>
+</div> -->
+
+</body>
+</html>
